@@ -9,48 +9,81 @@ namespace CodeForces
     {
         static void Main(string[] args)
         {
-            int n;
-            long m;
-            string s = Console.ReadLine().Trim();
-            var ss = s.Split(' ');
-            n = int.Parse(ss[0]);
-            m = int.Parse(ss[1]);
+            long n;
+            int k;
+            long s;
+            string str = Console.ReadLine().Trim();
+            var ss = str.Split(' ');
+            n = long.Parse(ss[0]);
+            k = int.Parse(ss[1]);
+            s = long.Parse(ss[2]);
 
-            long[] diffs = new long[n];
-            long sum = 0;
-            for (int i = 0; i < n; i++)
+            long maxStep = n - 1;
+            if (!(s >= k && s <= maxStep * k))
             {
-                string s2 = Console.ReadLine().Trim();
-                var ss2 = s2.Split(' ');
-                long a = int.Parse(ss2[0]);
-                long b = int.Parse(ss2[1]);
-                sum += a;
-                diffs[i] = a - b;
-            }
-            int songsToArchive = 0;
-            if (sum > m)
-            {
-                Array.Sort(diffs);
-
-                while (songsToArchive < n)
-                {
-                    sum -= diffs[n - songsToArchive - 1];
-                    songsToArchive++;
-                    if (sum <= m)
-                    {
-                        break;
-                    }
-                }
-                if (sum > m)
-                {
-                    Console.WriteLine("-1");
-                    return;
-                }
+                Console.WriteLine("NO");
+                return;
             }
 
+            Console.WriteLine("YES");
+            var sb = new StringBuilder();
+            long currentHouse = 1;
 
-            Console.WriteLine(songsToArchive);
+            // 1st Phase: max steps
+            long nextS = s - maxStep;
+            while (nextS >= (k - 1) && k > 0)
+            {
+                if (currentHouse == 1)
+                {
+                    currentHouse = n;
+                }
+                else if (currentHouse == n)
+                {
+                    currentHouse = 1;
+                }
+                sb.Append(currentHouse).Append(' ');
+                s = nextS;
+                nextS = s - maxStep;
+                k--;
+            }
+            if (k == 0)
+            {
+                //terminate
+                Console.WriteLine(sb.ToString());
+                return;
+            }
 
+            // 2 phase: single mid step
+            var midStep = (s - (k - 1));
+            if (currentHouse == 1)
+            {
+                currentHouse += midStep;
+            }
+            else if (currentHouse == n)
+            {
+                currentHouse -= midStep;
+            }
+            sb.Append(currentHouse).Append(' ');
+            k--;
+
+
+            // 3st phase: 1 steps
+            while (k > 0)
+            {
+                if (currentHouse == 1)
+                {
+                    currentHouse++;
+                }
+                else if (currentHouse > 1)
+                {
+                    currentHouse--;
+                }
+
+                sb.Append(currentHouse).Append(' ');
+                k--;
+            }
+
+            Console.WriteLine(sb.ToString());
         }
     }
 }

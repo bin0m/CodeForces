@@ -6,6 +6,9 @@ namespace CodeForces
 {
     class EasyProblems
     {
+        // input:
+        // 5
+        // 1 2 4 5 10
         void SosednieZameny()
         {
             int n;
@@ -30,6 +33,11 @@ namespace CodeForces
             Console.WriteLine(sb.ToString());
         }
 
+        // input:
+        // 3 5
+        // 2 2
+        // 1 2
+        // 5 5
         void TochkiVotrezkah()
         {
             int n;
@@ -68,6 +76,10 @@ namespace CodeForces
             Console.WriteLine(sb.ToString());
         }
 
+        // input:
+        // 6
+        // abcdef
+        // abdfec
         void PoluchenieStroki()
         {
             int n;
@@ -110,7 +122,12 @@ namespace CodeForces
             Console.WriteLine(counter);
             Console.WriteLine(sb.ToString());
         }
-
+        
+        // input:
+        // 3 21
+        // 10 8
+        // 7 4
+        // 3 1
         void ArchiveSongs()
         {
             int n;
