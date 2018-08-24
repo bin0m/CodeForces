@@ -67,7 +67,7 @@ namespace CodeForces
 
             // find max intersection in Complete List
             var maxIntersection = 0;
-            var currentIntersection = 1;
+            var currentIntersection = 0;
             completePoints.Sort();
             int prevX = -2;
             foreach(var x in completePoints)
@@ -79,36 +79,45 @@ namespace CodeForces
                 else
                 {
                     maxIntersection = Math.Max(maxIntersection, currentIntersection);
-                    currentIntersection = 1;
+                    currentIntersection = 0;
                 }
                 prevX = x;
             }
 
             maxIntersection = Math.Max(maxIntersection, currentIntersection);
 
+            var checkedUntil = 0;
             //check all incomplete points
-            foreach (var problemX in incompletePoints )
+            incompletePoints.Sort();
+            foreach (var tryingX in incompletePoints )
             {
+                // if this point was in previous problem line, no need to check again
+                if (tryingX < checkedUntil)
+                {
+                    continue;
+                }
                 //find problem line
                 Tuple<int, int> problemLine = new Tuple<int, int>(-1,1);
+                
                 foreach (var line in lines)
                 {
-                    if(problemX < line.Item1 || problemX > line.Item2)
+                    if(tryingX > checkedUntil && ( tryingX < line.Item1 || tryingX > line.Item2 ))
                     {
                         problemLine = line;
+                        checkedUntil = line.Item1;
                         break;
                     }
                 }
-                currentIntersection = 1;
+                currentIntersection = 0;
 
                 // go down
-                int i = problemX - 1;
-                while(true)
+                int i = tryingX - 1;
+                while( i >= 0 )
                 {
                     if (intersections.ContainsKey(i))
                     {
                         if(intersections[i] == n || 
-                            (intersections[i] == n - 1 && (i >= problemLine.Item1 && i <= problemLine.Item2))
+                            (intersections[i] == n - 1 && (i < problemLine.Item1 || i > problemLine.Item2))
                             )
                         {
                             currentIntersection++;
@@ -125,13 +134,13 @@ namespace CodeForces
                     i--;
                 }
                 // go up
-                i = problemX + 1;
-                while (true)
+                i = tryingX + 1;
+                while ( true )
                 {
                     if (intersections.ContainsKey(i))
                     {
                         if (intersections[i] == n ||
-                            (intersections[i] == n - 1 && (i <= problemLine.Item1 && i >= problemLine.Item2))
+                            (intersections[i] == n - 1 && (i < problemLine.Item1 || i > problemLine.Item2))
                             )
                         {
                             currentIntersection++;
@@ -139,7 +148,7 @@ namespace CodeForces
                         else
                         {
                             maxIntersection = Math.Max(maxIntersection, currentIntersection);
-                            currentIntersection = 1;
+                            currentIntersection = 0;
                             break;
 
                         }
@@ -147,7 +156,7 @@ namespace CodeForces
                     else
                     {
                         maxIntersection = Math.Max(maxIntersection, currentIntersection);
-                        currentIntersection = 1;
+                        currentIntersection = 0;
                         break;
                     }
                     i++;
