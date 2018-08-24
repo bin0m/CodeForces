@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CodeForces
 {
@@ -9,81 +7,34 @@ namespace CodeForces
     {
         static void Main(string[] args)
         {
-            long n;
-            int k;
-            long s;
-            string str = Console.ReadLine().Trim();
-            var ss = str.Split(' ');
-            n = long.Parse(ss[0]);
-            k = int.Parse(ss[1]);
-            s = long.Parse(ss[2]);
+            int n;
+            string s = Console.ReadLine().Trim();
+            n = int.Parse(s);
 
-            long maxStep = n - 1;
-            if (!(s >= k && s <= maxStep * k))
+            s = Console.ReadLine();
+            int[] a = (from v in s.Split(' ') select int.Parse(v)).ToArray();
+            if(n == 1)
             {
-                Console.WriteLine("NO");
+                Console.WriteLine(1);
                 return;
             }
-
-            Console.WriteLine("YES");
-            var sb = new StringBuilder();
-            long currentHouse = 1;
-
-            // 1st Phase: max steps
-            long nextS = s - maxStep;
-            while (nextS >= (k - 1) && k > 0)
+            int maxSubSetLength = 1;
+            int currentSubSetLength = 1;
+            for (int i = 1; i < n; i++)
             {
-                if (currentHouse == 1)
-                {
-                    currentHouse = n;
-                }
-                else if (currentHouse == n)
-                {
-                    currentHouse = 1;
-                }
-                sb.Append(currentHouse).Append(' ');
-                s = nextS;
-                nextS = s - maxStep;
-                k--;
+               if(a[i] <= a[i-1] * 2)
+               {
+                    currentSubSetLength++;
+               }
+               else
+               {
+                    maxSubSetLength = Math.Max(maxSubSetLength, currentSubSetLength);
+                    currentSubSetLength = 1;
+               }
             }
-            if (k == 0)
-            {
-                //terminate
-                Console.WriteLine(sb.ToString());
-                return;
-            }
+            Console.WriteLine(Math.Max(maxSubSetLength, currentSubSetLength));
 
-            // 2 phase: single mid step
-            var midStep = (s - (k - 1));
-            if (currentHouse == 1)
-            {
-                currentHouse += midStep;
-            }
-            else if (currentHouse == n)
-            {
-                currentHouse -= midStep;
-            }
-            sb.Append(currentHouse).Append(' ');
-            k--;
-
-
-            // 3st phase: 1 steps
-            while (k > 0)
-            {
-                if (currentHouse == 1)
-                {
-                    currentHouse++;
-                }
-                else if (currentHouse > 1)
-                {
-                    currentHouse--;
-                }
-
-                sb.Append(currentHouse).Append(' ');
-                k--;
-            }
-
-            Console.WriteLine(sb.ToString());
+            Console.ReadLine();
         }
     }
 }

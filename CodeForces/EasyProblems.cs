@@ -172,5 +172,81 @@ namespace CodeForces
 
             Console.WriteLine(songsToArchive);
         }
+
+        static void MnogoOdinakovyhPodstrok()
+        {
+            int n;
+            int k;
+            string s = Console.ReadLine().Trim();
+            var ss = s.Split(' ');
+            n = int.Parse(ss[0]);
+            k = int.Parse(ss[1]);
+
+            s = Console.ReadLine();
+            char[] arr = s.ToCharArray();
+            int maxLength = 0;
+            int substringLength = 1;
+            while (substringLength < n)
+            {
+                bool isSame = true;
+                for (int i = 0; i < substringLength; i++)
+                {
+                    if (s[i] != s[n - substringLength + i])
+                    {
+                        isSame = false;
+                        break;
+                    }
+                }
+                if (isSame)
+                {
+                    maxLength = substringLength;
+                }
+                substringLength++;
+            }
+
+            string secondHalf = s.Substring(maxLength, n - maxLength);
+
+            var sb = new StringBuilder(s);
+
+            for (int i = 1; i < k; i++)
+            {
+                sb.Append(secondHalf);
+            }
+
+            Console.WriteLine(sb.ToString());
+            Console.ReadLine();
+        }
+
+        static void SostavlenieKontenta()
+        {
+            int n;
+            string s = Console.ReadLine().Trim();
+            n = int.Parse(s);
+
+            s = Console.ReadLine();
+            int[] a = (from v in s.Split(' ') select int.Parse(v)).ToArray();
+            if (n == 1)
+            {
+                Console.WriteLine(1);
+                return;
+            }
+            int maxSubSetLength = 1;
+            int currentSubSetLength = 1;
+            for (int i = 1; i < n; i++)
+            {
+                if (a[i] <= a[i - 1] * 2)
+                {
+                    currentSubSetLength++;
+                }
+                else
+                {
+                    maxSubSetLength = Math.Max(maxSubSetLength, currentSubSetLength);
+                    currentSubSetLength = 1;
+                }
+            }
+            Console.WriteLine(Math.Max(maxSubSetLength, currentSubSetLength));
+
+            Console.ReadLine();
+        }
     }
 }
