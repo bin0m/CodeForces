@@ -87,12 +87,13 @@ namespace CodeForces
             maxIntersection = Math.Max(maxIntersection, currentIntersection);
 
             var checkedUntil = 0;
+            var checkedAfter = n;
             //check all incomplete points
             incompletePoints.Sort();
             foreach (var tryingX in incompletePoints )
             {
                 // if this point was in previous problem line, no need to check again
-                if (tryingX < checkedUntil)
+                if (tryingX < checkedUntil || tryingX > checkedAfter)
                 {
                     continue;
                 }
@@ -104,7 +105,8 @@ namespace CodeForces
                     if(tryingX > checkedUntil && ( tryingX < line.Item1 || tryingX > line.Item2 ))
                     {
                         problemLine = line;
-                        checkedUntil = line.Item1;
+                        checkedUntil = Math.Max(checkedUntil, line.Item1);
+                        checkedAfter = Math.Min(checkedAfter, line.Item2);
                         break;
                     }
                 }
