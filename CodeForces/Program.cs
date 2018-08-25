@@ -8,11 +8,6 @@ namespace CodeForces
     {
         static void Main(string[] args)
         {
-            //TODO
-            //input:
-            // 2
-            // 3 10
-            // 1 5
             int n;
             string s = Console.ReadLine().Trim();
             n = int.Parse(s);
@@ -44,25 +39,18 @@ namespace CodeForces
             var incompletePoints = new List<int>();
             var completePoints = new List<int>();
 
-            // clear unnessacery keys
+            // choose n and n-1 keys
             foreach (var keyValuePair in intersections)
             {           
-                if(keyValuePair.Value < n-1 )
+                if (keyValuePair.Value == n - 1)
                 {
-
-                    intersections.Remove(keyValuePair.Key);
-                }     
-                else
-                {
-                    if (keyValuePair.Value == n - 1)
-                    {
-                        incompletePoints.Add(keyValuePair.Key);
-                    }
-                    if (keyValuePair.Value == n)
-                    {
-                        completePoints.Add(keyValuePair.Key);
-                    }
+                    incompletePoints.Add(keyValuePair.Key);
                 }
+                if (keyValuePair.Value == n)
+                {
+                    completePoints.Add(keyValuePair.Key);
+                }
+                
             }
 
             // find max intersection in Complete List
@@ -87,7 +75,7 @@ namespace CodeForces
             maxIntersection = Math.Max(maxIntersection, currentIntersection);
 
             var checkedUntil = 0;
-            var checkedAfter = n;
+            var checkedAfter = int.MaxValue;
             //check all incomplete points
             incompletePoints.Sort();
             foreach (var tryingX in incompletePoints )
@@ -102,7 +90,7 @@ namespace CodeForces
                 
                 foreach (var line in lines)
                 {
-                    if(tryingX > checkedUntil && ( tryingX < line.Item1 || tryingX > line.Item2 ))
+                    if( tryingX < line.Item1 || tryingX > line.Item2 )
                     {
                         problemLine = line;
                         checkedUntil = Math.Max(checkedUntil, line.Item1);
@@ -164,10 +152,7 @@ namespace CodeForces
                     i++;
                 }
             }
-
-
             Console.WriteLine(maxIntersection);
-
         }
     }
 }
