@@ -173,6 +173,9 @@ namespace CodeForces
             Console.WriteLine(songsToArchive);
         }
 
+        // input:
+        // 3 2
+        // cat
         static void MnogoOdinakovyhPodstrok()
         {
             int n;
@@ -217,6 +220,9 @@ namespace CodeForces
             Console.ReadLine();
         }
 
+        // input:
+        // 6
+        // 4 7 12 100 150 199
         static void SostavlenieKontenta()
         {
             int n;
