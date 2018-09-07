@@ -254,5 +254,24 @@ namespace CodeForces
 
             Console.ReadLine();
         }
+
+        // input:
+        // 4 3
+        static void vysotaFunctsii()
+        {
+            ulong n;
+            ulong k;
+            string str = Console.ReadLine().Trim();
+            var ss = str.Split(' ');
+            n = ulong.Parse(ss[0]);
+            k = ulong.Parse(ss[1]);
+            ulong coeff = k / n;
+            if (k % n != 0)
+            {
+                coeff++;
+            }
+
+            Console.WriteLine(coeff);
+        }
     }
 }
