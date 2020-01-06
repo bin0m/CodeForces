@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\GL\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\GL\\.nuget\\packages"
-    ]
-  }
-}
