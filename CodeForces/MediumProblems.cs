@@ -412,5 +412,39 @@ namespace CodeForces
                 return k - 1;
             }
         }
+
+        // input:
+        // 2
+        // output:
+        // (())
+        // ()()
+        public static void GenerateBracketsPermutations()
+        {
+            string s = Console.ReadLine().Trim();
+            int n = int.Parse(s);
+            GenerateBracketsPermutationsRecursive("", n, n);
+
+        }
+
+        private static void GenerateBracketsPermutationsRecursive(string s, int openeres, int closers)
+        {
+            if (closers == 0)
+            {
+                Console.WriteLine(s);
+                return;
+            }
+
+            if (openeres > 0)
+            {
+                GenerateBracketsPermutationsRecursive(s + "(", openeres - 1, closers);
+            }
+
+            if (closers > 0 && closers > openeres)
+            {
+                GenerateBracketsPermutationsRecursive(s + ")", openeres, closers - 1);
+            }
+        }
+
+        
     }
 }
