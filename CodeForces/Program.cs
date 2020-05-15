@@ -17,30 +17,15 @@ namespace CodeForces
             for (int j = 0; j < t; j++)
             {
                 s = Console.ReadLine().Trim();
-                int n = int.Parse(s);
-                int sum = 0;
-                for (int i = n - 1; i > 0; i = i - 2)
+                long n = long.Parse(s);
+                long sum = 0;
+                for (long i = n - 1; i > 0; i = i - 2)
                 {
                     sum = sum + i * 2 * i;
                 }
 
                 Console.WriteLine(sum);
             }
-        }
-        static string PrintList(IList<int> list)
-        {
-            var sb = new StringBuilder();
-            foreach (int a in list)
-            {
-                sb.Append(a);
-                sb.Append(" ");
-            }
-            return sb.ToString();
-        }
-
-        
-
-    
-
+        }      
     }
 }

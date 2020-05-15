@@ -81,8 +81,7 @@ namespace CodeForces
             }
         }
 
-        // 5
-        // wrong solution on input 499993 (out should be 41664916690999888)
+        // 5       
         public static void C_BoardMoves()
         {
             int t;
@@ -92,9 +91,9 @@ namespace CodeForces
             for (int j = 0; j < t; j++)
             {
                 s = Console.ReadLine().Trim();
-                int n = int.Parse(s);
-                int sum = 0;
-                for (int i = n - 1; i > 0; i = i - 2)
+                long n = long.Parse(s);
+                long sum = 0;
+                for (long i = n - 1; i > 0; i = i - 2)
                 {
                     sum = sum + i * 2 * i;
                 }
