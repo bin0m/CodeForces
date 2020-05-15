@@ -6,9 +6,116 @@ using System.Text;
 
 namespace CodeForces
 {
-    class Program
+    public class Round642
     {
-        static void Main(string[] args)
+        // input:
+        // 1 100
+        public static void A_MostUnstableArray()
+        {
+            int t;
+            string s = Console.ReadLine().Trim();
+            t = int.Parse(s);
+
+            for (int i = 0; i < t; i++)
+            {
+                string s2 = Console.ReadLine().Trim();
+                var ss2 = s2.Split(' ');
+                int n = int.Parse(ss2[0]);
+                int m = int.Parse(ss2[1]);
+                if (n == 1)
+                {
+                    Console.WriteLine(0);
+                    continue;
+                }
+                else if (n == 2)
+                {
+                    Console.WriteLine(m);
+                    continue;
+                }
+                else if (n > 2)
+                {
+                    Console.WriteLine(m * 2);
+                    continue;
+                }
+            }
+        }    
+
+        // 4 0
+        // 2 2 4 3
+        // 2 4 2 3
+        public static void B_TwoArraysAndSwaps()
+        {
+            int t;
+            string s = Console.ReadLine().Trim();
+            t = int.Parse(s);
+
+            for (int j = 0; j < t; j++)
+            {
+                string s2 = Console.ReadLine().Trim();
+                var ss2 = s2.Split(' ');
+                int n = int.Parse(ss2[0]);
+                int k = int.Parse(ss2[1]);
+                s = Console.ReadLine();
+                int[] a = (from v in s.Split(' ') select int.Parse(v)).ToArray();
+                s = Console.ReadLine();
+                int[] b = (from v in s.Split(' ') select int.Parse(v)).ToArray();
+
+                Array.Sort(a);
+                Array.Sort(b);
+
+                int sum = a.Sum();
+
+                for (int i = 0; i < k; i++)
+                {
+                    if (a[i] < b[n - 1 - i])
+                    {
+                        sum = sum - a[i] + b[n - 1 - i];
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                Console.WriteLine(sum);
+            }
+        }
+
+        // 5
+        // wrong solution on input 499993 (out should be 41664916690999888)
+        public static void C_BoardMoves()
+        {
+            int t;
+            string s = Console.ReadLine().Trim();
+            t = int.Parse(s);
+
+            for (int j = 0; j < t; j++)
+            {
+                s = Console.ReadLine().Trim();
+                int n = int.Parse(s);
+                int sum = 0;
+                for (int i = n - 1; i > 0; i = i - 2)
+                {
+                    sum = sum + i * 2 * i;
+                }
+
+                Console.WriteLine(sum);
+            }
+        }
+
+        static string PrintList(IList<int> list)
+        {
+            var sb = new StringBuilder();
+            foreach (int a in list)
+            {
+                sb.Append(a);
+                sb.Append(" ");
+            }
+            return sb.ToString();
+        }
+
+        // 6
+        public static void D_ConstructingTheArray()
         {
             int t;
             string s = Console.ReadLine().Trim();
@@ -20,7 +127,7 @@ namespace CodeForces
                 int n = int.Parse(s);
                 int[] a = new int[n];
 
-                if(n == 1)
+                if (n == 1)
                 {
                     Console.WriteLine(1);
                     continue;
@@ -30,7 +137,7 @@ namespace CodeForces
                 MaxHeap<Interval> heap = new MaxHeap<Interval>(new IntervalComparer());
                 heap.Add(new Interval { l = 0, r = n - 1, len = n });
                 int counter = 1;
-                while(heap.Count > 0)
+                while (heap.Count > 0)
                 {
                     Interval v = heap.ExtractDominating();
                     if (v.len < 1)
@@ -47,7 +154,7 @@ namespace CodeForces
                         };
                         var v2 = new Interval
                         {
-                            l = ind+1,
+                            l = ind + 1,
                             r = v.r
                         };
                         v1.len = v1.r - v1.l + 1;
@@ -59,16 +166,7 @@ namespace CodeForces
                 Console.WriteLine(PrintList(a));
             }
         }
-        static string PrintList(IList<int> list)
-        {
-            var sb = new StringBuilder();
-            foreach (int a in list)
-            {
-                sb.Append(a);
-                sb.Append(" ");
-            }
-            return sb.ToString();
-        }
+   
 
         public class Interval
         {
@@ -77,11 +175,11 @@ namespace CodeForces
             public int len;
         }
 
-        public class IntervalComparer :Comparer<Interval>
+        public class IntervalComparer : Comparer<Interval>
         {
             public override int Compare(Interval x, Interval y)
             {
-                if(x.len > y.len)
+                if (x.len > y.len)
                 {
                     return 1;
                 }
@@ -90,7 +188,7 @@ namespace CodeForces
                     return -1;
                 }
 
-                if(x.l < y.l)
+                if (x.l < y.l)
                 {
                     return 1;
                 }
@@ -104,6 +202,7 @@ namespace CodeForces
             }
         }
 
+        #region MaxHeap<T> implementation (copied from stackoverflow.com)
         public abstract class Heap<T> : IEnumerable<T>
         {
             private const int InitialCapacity = 0;
@@ -307,5 +406,8 @@ namespace CodeForces
             }
         }
 
+        #endregion
+
     }
 }
+
