@@ -1,0 +1,2 @@
+﻿
+// hint #1: if see in example output number > 10^9 => use long

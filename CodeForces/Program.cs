@@ -6,6 +6,8 @@ using System.Text;
 
 namespace CodeForces
 {
+    // hint #1: if see in example output number > 10^9 => use long
+
     class Program
     {
         static void Main(string[] args)
@@ -31,7 +33,7 @@ namespace CodeForces
                 long sum = 0;
                 for (int i = n - 1; i > 0; i = i - 2)
                 {
-                    sum = sum + (long) i * 2 * i;
+                    sum += (long) i * 2 * i;
                 }
 
                 Console.WriteLine(sum);
