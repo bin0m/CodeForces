@@ -15,7 +15,7 @@ namespace CodeForces
             int b = 100;
 
             int c = a * b;
-            long c2 = (long)a * b;$
+            long c2 = (long)a * b;
 
             Console.WriteLine(c);
             Console.WriteLine(c2);
