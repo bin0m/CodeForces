@@ -10,6 +10,16 @@ namespace CodeForces
     {
         static void Main(string[] args)
         {
+
+            int a = 123456789;
+            int b = 100;
+
+            int c = a * b;
+            long c2 = (long)a * b;$
+
+            Console.WriteLine(c);
+            Console.WriteLine(c2);
+
             int t;
             string s = Console.ReadLine().Trim();
             t = int.Parse(s);
@@ -17,11 +27,11 @@ namespace CodeForces
             for (int j = 0; j < t; j++)
             {
                 s = Console.ReadLine().Trim();
-                long n = long.Parse(s);
+                int n = int.Parse(s);
                 long sum = 0;
-                for (long i = n - 1; i > 0; i = i - 2)
+                for (int i = n - 1; i > 0; i = i - 2)
                 {
-                    sum = sum + i * 2 * i;
+                    sum = sum + (long) i * 2 * i;
                 }
 
                 Console.WriteLine(sum);
